@@ -6,7 +6,8 @@
 	<artifactId>io.infolayer.aida.executor</artifactId>
 	<version>1.0.0</version>
 	<name>executor</name>
-	<description>Demo project for Spring Boot</description>
+	<description>Infolayer Aida :: Executor Service</description>
+	<packaging>bundle</packaging>
 
 	<parent>	
 		<groupId>io.infolayer.aida</groupId>
@@ -15,31 +16,66 @@
 		<relativePath>../</relativePath>
 	</parent>
 
-	<dependencyManagement>
-		<dependencies>
-			<dependency>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-dependencies</artifactId>
-				<version>${org.springframework.boot.version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-		</dependencies>
-	</dependencyManagement>
+	 <properties>
+		<org.osgi.framework.version>1.8.0</org.osgi.framework.version>
+		<org.osgi.core.version>6.0.0</org.osgi.core.version>
+		<org.osgi.service.component.annotations.version>1.4.0</org.osgi.service.component.annotations.version>
+		<org.apache.felix.scr.version>1.2.10</org.apache.felix.scr.version>
+	</properties>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>maven-bundle-plugin</artifactId>
+                <version>5.1.1</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <instructions>
+                    	<Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
+                        <Bundle-Name>${project.name}</Bundle-Name>
+                        <Bundle-Description>${project.description}</Bundle-Description>
+                        <Bundle-Vendor>infolayer.io</Bundle-Vendor>
+                        <Bundle-Version>${project.version}</Bundle-Version>
+                        <!-- <Export-Package>!*</Export-Package> -->
+                        <Import-Package>
+							!sun.security.util,
+							*
+                        </Import-Package>
+						<_dsannotations>*</_dsannotations>
+                    </instructions>
+                </configuration>
+            </plugin>
+            
+        </plugins>
+    </build>
 
 	<dependencies>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter</artifactId>
+
+	  	<dependency>
+			<groupId>org.osgi</groupId>
+			<artifactId>org.osgi.framework</artifactId>
+			<version>${org.osgi.framework.version}</version>
 		</dependency>
+
 		<dependency>
-			<groupId>org.springframework.kafka</groupId>
-			<artifactId>spring-kafka</artifactId>
+   			<groupId>org.osgi</groupId>
+   			<artifactId>osgi.core</artifactId>
+   			<version>${org.osgi.core.version}</version>
+   		</dependency>
+
+		<dependency>
+			<groupId>org.osgi</groupId>
+			<artifactId>org.osgi.service.component.annotations</artifactId>
+			<version>${org.osgi.service.component.annotations.version}</version>
 		</dependency>
+		
 		<dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
-        </dependency>
+			<groupId>org.apache.felix</groupId>
+			<artifactId>org.apache.felix.scr.ds-annotations</artifactId>
+			<version>${org.apache.felix.scr.version}</version>
+			<scope>provided</scope>
+		</dependency>
 
 		<dependency>
     		<groupId>io.infolayer.aida</groupId>
@@ -88,25 +124,6 @@
 			<version>${jtwig.version}</version>
 		</dependency>		
 
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.kafka</groupId>
-			<artifactId>spring-kafka-test</artifactId>
-			<scope>test</scope>
-		</dependency>
 	</dependencies>
-
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-			</plugin>
-		</plugins>
-	</build>
 
 </project>

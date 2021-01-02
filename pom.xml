@@ -30,6 +30,7 @@
 		<module>api</module>
     <module>control</module>
     <module>scheduler</module>
+    <module>executor</module>
 	</modules>
 
   <dependencies>

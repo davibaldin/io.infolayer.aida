@@ -1,0 +1,99 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>io.infolayer.aida.executor</groupId>
+  <artifactId>io.infolayer.aida.executor.felix</artifactId>
+  <version>1.0.0</version>
+  <name>Apache Felix Executor Service</name>
+  <packaging>pom</packaging>
+
+  <properties>
+	<apache.felix.version>7.0.0</apache.felix.version>
+  </properties>
+  
+  <!-- Build Configuration -->
+    <build>
+        <plugins>
+
+            <plugin>
+	            <groupId>org.apache.maven.plugins</groupId>
+	            <artifactId>maven-antrun-plugin</artifactId>
+	            <executions>
+	                <execution>	
+	                    <phase>install</phase>
+	                    <configuration>
+	                    	<tasks>
+
+								<get src="https://downloads.apache.org/felix/org.apache.felix.main.distribution-${apache.felix.version}.zip" dest="felix-${apache.felix.version}.zip" />
+								<unzip src="felix-${apache.felix.version}.zip" dest="temp"/>
+								<copy todir="target/bundle">
+									<fileset dir="temp/felix-framework-${apache.felix.version}/bundle">
+										<include name="*.jar"/>
+										<exclude name="*gogo*.jar"/>
+									</fileset>
+								</copy>
+								<copy todir="target/bin">
+									<fileset dir="temp/felix-framework-${apache.felix.version}/bin">
+										<include name="*.jar"/>
+									</fileset>
+								</copy>
+								<move file="target/bin/felix.jar" tofile="target/bin/executor.jar"/>
+							
+								<copy file="conf/config.properties" todir="target/conf" overwrite="true" verbose="true"/>
+								<copy todir="target/bundle">
+									<fileset dir="../../api/target">
+										<include name="*.jar"/>
+									</fileset>
+									<fileset dir="../../executor/target">
+										<include name="*.jar"/>
+									</fileset>
+									<fileset dir="target/dependency">
+										<include name="*.jar"/>
+									</fileset>
+								</copy>
+								<delete dir="target/dependency" failonerror="false"/>
+								<delete dir="temp" failonerror="false"/>
+								<delete file="felix-${apache.felix.version}.zip" failonerror="false"/>
+								
+	                    	</tasks>
+	                    </configuration>
+	                    <goals>
+	                        <goal>run</goal>
+	                    </goals>
+	                </execution>
+	            </executions>
+        	</plugin>
+            
+            
+        </plugins>
+    </build>
+    
+  <dependencies>
+
+		<dependency>
+			<groupId>org.osgi</groupId>
+			<artifactId>org.osgi.util.function</artifactId>
+			<version>1.1.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.osgi</groupId>
+			<artifactId>org.osgi.util.promise</artifactId>
+			<version>1.1.1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-simple</artifactId>
+			<version>1.7.30</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.felix</groupId>
+			<artifactId>org.apache.felix.scr</artifactId>
+			<version>2.1.24</version>
+		</dependency>
+
+	</dependencies>
+
+</project>
