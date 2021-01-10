@@ -17,6 +17,7 @@
 	</parent>
 
 	 <properties>
+	    <skipTests>true</skipTests>
 		<org.osgi.framework.version>1.8.0</org.osgi.framework.version>
 		<org.osgi.core.version>6.0.0</org.osgi.core.version>
 		<org.osgi.service.component.annotations.version>1.4.0</org.osgi.service.component.annotations.version>
@@ -37,11 +38,18 @@
                         <Bundle-Description>${project.description}</Bundle-Description>
                         <Bundle-Vendor>infolayer.io</Bundle-Vendor>
                         <Bundle-Version>${project.version}</Bundle-Version>
-                        <!-- <Export-Package>!*</Export-Package> -->
+                        <Export-Package>!*</Export-Package>
                         <Import-Package>
 							!sun.security.util,
 							*
                         </Import-Package>
+						<Bundle-ClassPath>.,{maven-dependencies}</Bundle-ClassPath>
+                        <Embed-Dependency>*;scope=compile|runtime;artifactId=!
+						org.osgi.framework|
+						org.osgi.service.component.annotations|
+						osgi.core
+						</Embed-Dependency>
+						<Embed-Directory>lib</Embed-Directory>
 						<_dsannotations>*</_dsannotations>
                     </instructions>
                 </configuration>
@@ -51,6 +59,18 @@
     </build>
 
 	<dependencies>
+
+		<dependency>
+			<groupId>org.apache.kafka</groupId>
+			<artifactId>kafka-clients</artifactId>
+			<version>${org.apache.kafka.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>${jackson.databind.version}</version>
+		</dependency>
 
 	  	<dependency>
 			<groupId>org.osgi</groupId>
@@ -68,6 +88,12 @@
 			<groupId>org.osgi</groupId>
 			<artifactId>org.osgi.service.component.annotations</artifactId>
 			<version>${org.osgi.service.component.annotations.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.osgi</groupId>
+			<artifactId>org.osgi.service.jdbc</artifactId>
+			<version>1.0.0</version>
 		</dependency>
 		
 		<dependency>

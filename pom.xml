@@ -24,6 +24,9 @@
     <jPowerShell.version>3.1.1</jPowerShell.version>
     <commons.io.version>2.6</commons.io.version>
     <jtwig.version>5.87.0.RELEASE</jtwig.version>
+    <org.apache.kafka.version>2.6.0</org.apache.kafka.version>
+    <jackson.databind.version>2.12.0</jackson.databind.version>
+    <org.slf4j.version>1.7.30</org.slf4j.version>
   </properties>
 
   <modules>
@@ -34,16 +37,38 @@
 	</modules>
 
   <dependencies>
+
     <dependency>
         <groupId>org.junit.jupiter</groupId>
         <artifactId>junit-jupiter-api</artifactId>
         <version>5.4.2</version>
         <scope>test</scope>
     </dependency>
+
     <dependency>
         <groupId>org.junit.jupiter</groupId>
         <artifactId>junit-jupiter-engine</artifactId>
         <version>5.4.2</version>
+        <scope>test</scope>
+    </dependency>
+
+    <dependency>
+        <groupId>org.junit.jupiter</groupId>
+        <artifactId>junit-jupiter-engine</artifactId>
+        <version>5.4.2</version>
+        <scope>test</scope>
+    </dependency>
+
+    <dependency>
+  		<groupId>org.slf4j</groupId>
+  		<artifactId>slf4j-api</artifactId>
+  		<version>${org.slf4j.version}</version>
+  	</dependency>
+
+    <dependency>
+        <groupId>org.slf4j</groupId>
+        <artifactId>slf4j-simple</artifactId>
+        <version>${org.slf4j.version}</version>
         <scope>test</scope>
     </dependency>
 
