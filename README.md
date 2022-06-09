@@ -1,6 +1,6 @@
 # Welcome to Infolayer AIDA Project
 
-AIDA project is an abstraction layer for tools and frameworks responsible for IT services provisioning, monitoring and orchestration. Our goal is to provide a gateway interface for frameworks and repeatable activities and response to new events.
+AIDA project is an abstraction layer for tools and frameworks responsible for IT services provisioning, monitoring and orchestration. Our goal is to provide a gateway interface for frameworks and repeatable activities and response to new new events.
 
 **Motivation**
 
